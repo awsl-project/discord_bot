@@ -26,6 +26,6 @@ jobs:
         run: echo ${{ secrets.DISCORD_BOT_ENV }} > .env
 
       - name: Build the Docker image
-        run: docker build . --file docker/Dockerfile --tag dreamhunter2333.azurecr.io/awsl/awsl-front:${{ steps.get_version.outputs.VERSION }}
+        run: docker build . --file docker/Dockerfile --tag dreamhunter2333.azurecr.io/awsl/discord-bot:${{ steps.get_version.outputs.VERSION }}
       - name: Push the Docker image
-        run: docker push dreamhunter2333.azurecr.io/awsl/awsl-front:${{ steps.get_version.outputs.VERSION }}
+        run: docker push dreamhunter2333.azurecr.io/awsl/discord-bot:${{ steps.get_version.outputs.VERSION }}
