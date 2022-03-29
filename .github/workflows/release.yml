@@ -22,9 +22,6 @@ jobs:
           username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
           password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
 
-      - name: Rename AWSL_API_HOST
-        run: echo ${{ secrets.DISCORD_BOT_ENV }} > .env
-
       - name: Build the Docker image
         run: docker build . --file docker/Dockerfile --tag dreamhunter2333.azurecr.io/awsl/discord-bot:${{ steps.get_version.outputs.VERSION }}
       - name: Push the Docker image
