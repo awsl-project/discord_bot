@@ -26,7 +26,7 @@ client.on('interactionCreate', async interaction => {
             console.log('Get url: ' + url);
             await interaction.reply(url);
         } catch (error) {
-            await interaction.reply('请稍后重试');
+            console.error(error);
         }
 
     } else if (commandName === 'server') {
