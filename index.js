@@ -20,15 +20,17 @@ client.on('interactionCreate', async interaction => {
     const { commandName } = interaction;
 
     if (commandName === 'se') {
-        try {
-            const res = await axios.get(process.env.URL);
-            const url = res.data;
-            console.log('Get url: ' + url);
-            await interaction.reply(url);
-        } catch (error) {
-            console.error(error);
+        for (i = 0; i < 10; i++) {
+            try {
+                const res = await axios.get(process.env.URL, {timeout: 1000});
+                const url = res.data;
+                console.log('Get url: ' + url);
+                await interaction.reply(url);
+                return
+            } catch (error) {
+                console.error(error);
+            }
         }
-
     } else if (commandName === 'server') {
         await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`);
     } else if (commandName === 'user') {
