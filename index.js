@@ -22,10 +22,21 @@ client.on('interactionCreate', async interaction => {
     if (commandName === 'se') {
         for (i = 0; i < 10; i++) {
             try {
-                const res = await axios.get(process.env.URL, {timeout: 1000});
+                const res = await axios.get(process.env.URL, { timeout: 1000 });
                 const url = res.data;
                 console.log('Get url: ' + url);
                 await interaction.reply(url);
+                return
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    } else if (commandName === 'mo') {
+        for (i = 0; i < 10; i++) {
+            try {
+                const res = await axios.get(process.env.MOYU_URL, { timeout: 1000 });
+                const text = res.data;
+                await interaction.reply(text);
                 return
             } catch (error) {
                 console.error(error);
