@@ -8,6 +8,7 @@ dotenv.config();
 const commands = [
     new SlashCommandBuilder().setName('se').setDescription('来点瑟瑟'),
     new SlashCommandBuilder().setName('mo').setDescription('摸鱼办提醒'),
+    new SlashCommandBuilder().setName('mjx').setDescription('来点买家秀'),
     new SlashCommandBuilder().setName('server').setDescription('Replies with server info!'),
     new SlashCommandBuilder().setName('user').setDescription('Replies with user info!'),
 ].map(command => command.toJSON());

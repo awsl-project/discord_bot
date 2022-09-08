@@ -42,6 +42,17 @@ client.on('interactionCreate', async interaction => {
                 console.error(error);
             }
         }
+    } else if (commandName === 'mjx') {
+        for (i = 0; i < 10; i++) {
+            try {
+                const res = await axios.get(process.env.UOMG_URL, { timeout: 1000 });
+                const text = res.data.imgurl;
+                await interaction.reply(text);
+                return
+            } catch (error) {
+                console.error(error);
+            }
+        }
     } else if (commandName === 'server') {
         await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`);
     } else if (commandName === 'user') {
