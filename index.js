@@ -7,9 +7,12 @@ dotenv.config();
 
 // Create a new client instance
 const client = new Client({
+    partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
     intents: [
         Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES
+        Intents.FLAGS.GUILD_MESSAGES,
+        Intents.FLAGS.DIRECT_MESSAGES,
+        Intents.FLAGS.MESSAGE_CONTENT,
     ],
 });
 // When the client is ready, run this code (only once)
@@ -32,7 +35,7 @@ client.on('interactionCreate', async interaction => {
                 await interaction.reply(url);
                 return
             } catch (error) {
-                console.error(error);
+                console.error(error.message);
             }
         }
     } else if (commandName === 'mo') {
@@ -43,7 +46,7 @@ client.on('interactionCreate', async interaction => {
                 await interaction.reply(text);
                 return
             } catch (error) {
-                console.error(error);
+                console.error(error.message);
             }
         }
     } else if (commandName === 'mjx') {
@@ -54,7 +57,7 @@ client.on('interactionCreate', async interaction => {
                 await interaction.reply(text);
                 return
             } catch (error) {
-                console.error(error);
+                console.error(error.message);
             }
         }
     } else if (commandName === 'server') {
@@ -69,7 +72,7 @@ client.on('messageCreate', async message => {
     if (message.content === 'ping') {
         message.reply('Pong!');
     }
-    const prefix = "/";
+    const prefix = "<@922143561485545472> ";
     if (
         !message.content.startsWith(prefix)
         || message.author.bot
@@ -80,15 +83,14 @@ client.on('messageCreate', async message => {
             process.env.API_URL + '/chatgpt',
             {
                 token: process.env.API_TOKEN,
-                text: message.content,
+                text: message.content.slice(prefix.length),
                 chat_id: "discord"
-            },
-            { timeout: 10000 }
+            }
         );
         const text = res.data;
         await message.reply(text);
     } catch (error) {
-        console.error(error);
+        console.error(error.message);
     }
 })
 // Login to Discord with your client's token
