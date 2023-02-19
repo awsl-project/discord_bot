@@ -22,7 +22,7 @@ client.on('interactionCreate', async interaction => {
     if (commandName === 'se') {
         for (i = 0; i < 10; i++) {
             try {
-                const res = await axios.get(process.env.URL, { timeout: 1000 });
+                const res = await axios.get(process.env.API_URL + '/v2/random', { timeout: 1000 });
                 const url = res.data;
                 console.log('Get url: ' + url);
                 await interaction.reply(url);
@@ -34,7 +34,7 @@ client.on('interactionCreate', async interaction => {
     } else if (commandName === 'mo') {
         for (i = 0; i < 10; i++) {
             try {
-                const res = await axios.get(process.env.MOYU_URL, { timeout: 1000 });
+                const res = await axios.get(process.env.API_URL + '/moyu', { timeout: 1000 });
                 const text = res.data;
                 await interaction.reply(text);
                 return
@@ -60,5 +60,32 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
+
+client.on('messageCreate', async message => {
+    if (message.content === 'ping') {
+        message.reply('Pong!');
+    }
+    const prefix = "/";
+    if (
+        !message.content.startsWith(prefix)
+        || message.author.bot
+        || message.content.length > 200
+    ) return;
+    try {
+        const res = await axios.post(
+            process.env.API_URL + '/chatgpt',
+            {
+                token: process.env.API_TOKEN,
+                text: message.content,
+                chat_id: "discord"
+            },
+            { timeout: 10000 }
+        );
+        const text = res.data;
+        await message.reply(text);
+    } catch (error) {
+        console.error(error);
+    }
+})
 // Login to Discord with your client's token
 client.login(process.env.DISCORD_TOKEN);
