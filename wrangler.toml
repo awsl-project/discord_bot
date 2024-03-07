@@ -8,6 +8,8 @@ routes = [
 [vars]
 API_URL = "https://awsl.api.awsl.icu"
 MOYU_URL = "https://moyu.awsl.icu/api/moyu_txt"
+UOMG_URL = "https://api.uomg.com/api/rand.img3?format=json"
+
 
 # [secrets]
 # DISCORD_TOKEN

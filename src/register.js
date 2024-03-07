@@ -1,4 +1,4 @@
-import { SE_COMMAND, MO_COMMAND, AI_TEXT_COMMAND } from './commands.js';
+import { SE_COMMAND, MO_COMMAND, MJX_COMMAND } from './commands.js';
 import dotenv from 'dotenv';
 import process from 'node:process';
 
@@ -34,7 +34,7 @@ const response = await fetch(url, {
     Authorization: `Bot ${token}`,
   },
   method: 'PUT',
-  body: JSON.stringify([SE_COMMAND, MO_COMMAND]),
+  body: JSON.stringify([SE_COMMAND, MO_COMMAND, MJX_COMMAND]),
 });
 
 if (response.ok) {

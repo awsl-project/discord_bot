@@ -8,7 +8,7 @@ import {
   InteractionType,
   verifyKey,
 } from 'discord-interactions';
-import { SE_COMMAND, MO_COMMAND, AI_TEXT_COMMAND } from './commands.js';
+import { SE_COMMAND, MO_COMMAND, MJX_COMMAND, AI_TEXT_COMMAND } from './commands.js';
 import { Ai } from '@cloudflare/ai'
 
 class JsonResponse extends Response {
@@ -65,7 +65,7 @@ router.post('/', async (request, env) => {
           }
         });
         const url = await response.json();
-        console.log('Get url: ' + url);
+        console.log('SE_COMMAND url: ' + url);
         return new JsonResponse({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
@@ -74,17 +74,28 @@ router.post('/', async (request, env) => {
         });
       }
       case MO_COMMAND.name.toLowerCase(): {
-        const response = await fetch(env.MOYU_URL, {
-          "headers": {
-            "accept": "*/*",
-          },
-          "method": "GET"
-        });
+        const response = await fetch(env.MOYU_URL);
         const text = await response.text();
         return new JsonResponse({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
             content: text,
+          },
+        });
+      }
+      case MJX_COMMAND.name.toLowerCase(): {
+        const response = await fetch(env.UOMG_URL, {
+          method: 'GET',
+          headers: {
+            "Content-Type": "application/json",
+          }
+        });
+        const data = await response.json();
+        console.log('MJX_COMMAND data: ' + data);
+        return new JsonResponse({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: {
+            content: data["imgurl"],
           },
         });
       }
