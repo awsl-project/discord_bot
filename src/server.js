@@ -75,7 +75,7 @@ router.post('/', async (request, env) => {
       }
       case MO_COMMAND.name.toLowerCase(): {
         const response = await fetch(env.MOYU_URL);
-        const text = await response.text();
+        const text = await response.json();
         return new JsonResponse({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
