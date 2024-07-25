@@ -9,7 +9,6 @@ import {
   verifyKey,
 } from 'discord-interactions';
 import { SE_COMMAND, MO_COMMAND, AI_TEXT_COMMAND } from './commands.js';
-import { Ai } from '@cloudflare/ai'
 
 class JsonResponse extends Response {
   constructor(body, init) {
@@ -65,7 +64,6 @@ router.post('/', async (request, env) => {
           }
         });
         const url = await response.json();
-        console.log('SE_COMMAND url: ' + url);
         return new JsonResponse({
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
@@ -92,8 +90,7 @@ router.post('/', async (request, env) => {
             },
           });
         }
-        const ai = new Ai(env.AI);
-        const response = await ai.run('@cf/meta/llama-2-7b-chat-int8', {
+        const response = await env.AI.run.run('@cf/meta/llama-2-7b-chat-int8', {
           prompt: interaction.data.content
         });
         return new JsonResponse({
@@ -107,6 +104,7 @@ router.post('/', async (request, env) => {
         return new JsonResponse({ error: 'Unknown Type' }, { status: 400 });
     }
   }
+
 
   console.error('Unknown Type');
   return new JsonResponse({ error: 'Unknown Type' }, { status: 400 });

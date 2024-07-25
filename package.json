@@ -8,7 +8,7 @@
     "start": "node src/server.js",
     "dev": "wrangler dev src/server.js",
     "register": "node src/register.js",
-    "publish": "wrangler deploy"
+    "deploy": "wrangler deploy"
   },
   "license": "MIT",
   "dependencies": {
@@ -16,8 +16,7 @@
     "itty-router": "^4.0.13"
   },
   "devDependencies": {
-    "@cloudflare/ai": "^1.0.53",
-    "dotenv": "^16.0.3",
-    "wrangler": "^3.0.1"
+    "dotenv": "^16.4.5",
+    "wrangler": "^3.66.0"
   }
 }
